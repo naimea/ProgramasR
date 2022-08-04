@@ -1,4 +1,4 @@
-# Documentación
+# Documentación General
 
 ## Instalación con Docker
 ```Bash
