@@ -1,22 +1,8 @@
-# ProgramasR
-Codigo y tips de programacion en R
+# Programas R
+Codigo, documentación, manuales y tips de programación en R
 
-## Alguna vaina
+## Doc: Documentación General
+Documentacióón de instalación, manuales de paquetes y librerías
 
-```R
-tryCatch(
-  {
-    print("Conectando a la Base de Datos...")
-    con <- dbConnect(RPostgres::Postgres(),
-                     dbname = db_name,
-                     host = db_host,
-                     port = db_port,
-                     password = db_user_pw,
-                     user = db_user)
-  print("Conectando a la Base de Datos...")
-  },
-  error = function(e) print("Error conectando a la Base de Datos:",e),
-  warning = function(w) print("Advertencia conectando a la Base de Datos", w))
-
-```
-
+## Bases de Datos
+Conexiones a Bases de Datos y cómo acceder a datos en Bases de Datos para ser usados en análisis o guardar resultados. Agregar/eliminar campos a una tabla, insertar, actualizar, eliminar registros, etc.
