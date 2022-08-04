@@ -30,10 +30,10 @@ tryCatch(
   warning = function(w) print(w))
 
 # Agregando una columna campo1 de tipo numeric a la tabla datos del esquema public
-dbGetQuery(connec, "ALTER TABLE public.datos ADD COLUMN campo1 numeric;")
+dbGetQuery(con, "ALTER TABLE public.datos ADD COLUMN campo1 numeric;")
 
 # Eliminando la columna campo1 de la tabla datos del esquema public
-dbGetQuery(connec, "ALTER TABLE public.datos DROP COLUMN campo1;")
+dbGetQuery(con, "ALTER TABLE public.datos DROP COLUMN campo1;")
 
 # Desconectando de la Base de Datos
 dbDisconnect(con)
