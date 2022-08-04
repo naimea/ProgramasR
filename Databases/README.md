@@ -1,8 +1,8 @@
-## Bases de Datos
+# Bases de Datos
 
 Como conectarse a diversas bases de datos desde R
 
-# PostgreSQL
+## PostgreSQL
 Usando el paquete Rpostgres
 
 ```R
