@@ -1,6 +1,6 @@
-# Documentacion
+# Documentación
 
-## Instalacion con Docker
+## Instalación con Docker
 ```Bash
 docker run -d -p 8000:8787 \
            -e USER=<username> \
@@ -10,7 +10,7 @@ docker run -d -p 8000:8787 \
            --name rstudio rocker/verse
 ```
 
-# Actualizar la versión de R Studio Server
+## Actualizar la versión de R Studio Server
 ```Bash
 docker exec -it rstudio bash
 
@@ -29,6 +29,54 @@ dpkg -i rstudio-server-daily-amd64.deb \
   && apt-get clean
 
 exit
+```
+
+## Instalar paquetes adicionales del sistema al contenedor
+Algunas veces, al tratar de instalar y cargar librerías de R, como la librerías sf, puede que requiera algun paquete del sistema para instalarse o para cargarse. Por ejemplo:
+
+> library(sf)
+Error: package or namespace load failed for ‘sf’ in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/usr/local/lib/R/site-library/units/libs/units.so':
+  libudunits2.so.0: cannot open shared object file: No such file or directory
+
+En este caso (puede ser muy recomendable respaldar antes de cualquier cambio si se hace dentro del sistema en produccion):
+1) Buscamos el paquete
+apt-get search libudunits2
+
+root@941c8ca62696:/# apt-cache search libudunits2
+libudunits2-0 - Library for handling of units of physical quantities
+libudunits2-data - Data for handling of units of physical quantities
+libudunits2-dev - Development files for the libunits physical units package
+
+2) Actualizamos el sistema
+apt-get update
+apt-get upgrade
+
+3) Instalamos el (los) paquete(s)
+Nota: en este caso ya se que tambien necesito libproj15 para trabajar con datos cartograficos y libgdal26 para datos geoespaciales
+apt-get install libudunits2 libproj15
+
+4) Volvemos a R Studio e instalamos el paquete y/o cargamos:
+```R
+install.packages("sf")
+
+> install.packages("sf")
+Installing package into ‘/usr/local/lib/R/site-library’
+(as ‘lib’ is unspecified)
+trying URL 'https://packagemanager.rstudio.com/cran/__linux__/focal/latest/src/contrib/sf_1.0-8.tar.gz'
+Content type 'binary/octet-stream' length 8359239 bytes (8.0 MB)
+==================================================
+downloaded 8.0 MB
+
+* installing *binary* package ‘sf’ ...
+* DONE (sf)
+
+The downloaded source packages are in
+	‘/tmp/RtmpWGTjW7/downloaded_packages’
+
+> library(sf)
+Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1; sf_use_s2() is TRUE
+>
 ```
 
 ## Agregar un usuario nuevo a R Studio Server
@@ -56,22 +104,22 @@ Is the information correct? [Y/n] Y
 root@941c8ca62696:/#
 ```
 
-# Borrar el contenedor
+## Borrar el contenedor
 docker rm -f rstudio
 
-# Borrar la imagen
+## Borrar la imagen
 docker rmi rocker/verse:latest
 
-# Resplaldar el contenedor en ul archivo
+## Resplaldar el contenedor en ul archivo
 docker export -o respaldo.tar nombre_contenedor
 
 Tambien es valido:
 docker export nombre-contenedor > respaldo.tar
 
-# Restaurar un contenedor desde el respaldo
+## Restaurar un contenedor desde el respaldo
 docker import respaldo.tar nuevo_nombre_contenedor
 
-## Conexion a Base de Datos
+## Conexión a Base de Datos
 La función dbGetQuery de la librería RPostgreSQL presenta un pequeño fallo con al usar tryCatch
 
 ```R
