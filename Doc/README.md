@@ -9,6 +9,30 @@ docker run -d -p 8000:8787 \
            -v $(pwd):/home/rstudio \
            --name rstudio rocker/verse
 ```
+## Agregar un usuario nuevo a R Studio Server
+Nota: Simplemente se agrega un usuario al sistema
+
+```Bash
+# docker exec -it rstudio bash
+root@941c8ca62696:/# adduser usuario
+Adding user `usuario' ...
+Adding new group `usuario' (1001) ...
+Adding new user `usuario' (1001) with group `usuario' ...
+Creating home directory `/home/usuario' ...
+Copying files from `/etc/skel' ...
+New password: 
+Retype new password: 
+passwd: password updated successfully
+Changing the user information for usuario
+Enter the new value, or press ENTER for the default
+	Full Name []: Usuario Invitado
+	Room Number []: 
+	Work Phone []: 
+	Home Phone []: 
+	Other []: 
+Is the information correct? [Y/n] Y
+root@941c8ca62696:/#
+```
 
 ## Conexion a Base de Datos
 
