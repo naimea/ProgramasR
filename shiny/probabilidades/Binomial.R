@@ -1,6 +1,6 @@
 library(shiny)
 
-# Define la Interface de Usuario
+# Define la Interface de Usuario (front end)
 ui <- fluidPage(
   titlePanel("Variables Aleatorias Discretas: Binomial (n,p)"),
   
@@ -17,7 +17,7 @@ ui <- fluidPage(
   )
 )
 
-# Define server logic ----
+# Define el Servidor (back end)
 server <- function(input, output) {
   
   output$plot <- renderPlot({ 
@@ -34,5 +34,5 @@ server <- function(input, output) {
   
 }
 
-# Run the app ----
+# Ejecuta la aplicación
 shinyApp(ui = ui, server = server)
