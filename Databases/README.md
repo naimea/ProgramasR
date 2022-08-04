@@ -8,7 +8,6 @@ Usando el paquete Rpostgres
 ```R
 library(DBI)
 library(RPostgres)
-driver  <- "RPostgres::Postgres()"
 db_name <- 'xxxxxxx'      # Nombre de la Base de Datos
 db_host <- 'x.x.x.x'      # Nombre o IP del Host
 db_port <- 5432           # Puerto de Escucha del Servicio de BD
