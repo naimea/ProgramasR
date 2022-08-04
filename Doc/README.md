@@ -34,8 +34,22 @@ Is the information correct? [Y/n] Y
 root@941c8ca62696:/#
 ```
 
-## Conexion a Base de Datos
+# Borrar el contenedor
+docker rm -f rstudio
 
+# Borrar la imagen
+docker rmi rocker/verse:latest
+
+# Resplaldar el contenedor en ul archivo
+docker export -o respaldo.tar nombre_contenedor
+
+Tambien es valido:
+docker export nombre-contenedor > respaldo.tar
+
+# Restaurar un contenedor desde el respaldo
+docker import respaldo.tar nuevo_nombre_contenedor
+
+## Conexion a Base de Datos
 La función dbGetQuery de la librería RPostgreSQL presenta un pequeño fallo con al usar tryCatch
 
 ```R
